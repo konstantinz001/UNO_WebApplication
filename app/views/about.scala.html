@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>About-UNO</title>
+    </head>
+    
+    <body>
+        <p>
+            <h1>UNO-WebApplication</h1>
+
+            <img src="pics/UNO-Logo.png" width="300"> <br/>
+            The classic Uno-Game, created in Scala. <br/>
+            A project for the course Web-Applicationen.  <br/>
+            By <b>Konstantin</b> and <b>Sarah</b>.<br/>
+        </p>
+        <hr>
+        <p>
+            <h3>Setup</h3>
+            The game is for 2 player. The Draw Pile contains 108 cards. Each player takes seven cards form the Draw Pile.<br/>
+            The top card from the Draw Pile will be placed in the Discard Pile, and the game begins!<br/>
+        </p>
+        <hr>
+        <p>
+            <h3>Game Play</h3>
+            You have to match either by the number, color, or the symbol/Action with the  Discard Pile. For example, <br/>
+            if the Discard Pile has a red card with the number 8 you have to place either a red card or a card with an 8 on it. <br/>
+            You can also play a Wild card (which can alter current color in play).<br/>
+            <br/>
+            If the player has no matches or they choose not to play any of their cards even though they might have a match, <br/>
+            they must draw a card from the Draw pile.<br/>
+            <br/>
+            If a player put a Card on the Discard Pile or take a card from the Draw Pile, the game moves on to the next person in turn. <br/>
+            You can also play a Wild card, or a Wild Draw Four card on your turn.<br/>
+
+            The game continues until a player has two card left. The moment a player has just two card they must call “UNO!” to put <br/>
+            another card on the Discard Pile. If they are not calling “Uno”, that player must draw two new cards as a penalty. If a player  <br/>
+            call to early "UNO!", that player must also draw two new cards<br/>
+            To wining the game the player with only one card must call "UNO!" again. <br/>
+        </p>
+        <hr>
+        <p>
+            <h3>Action Cards</h3>
+
+            <ul>
+                <li><b>Reverse:</b></li>
+                    <ul>If going clockwise, switch to counterclockwise. It can only be played on a card that matches by color, or on another Reverse card.</ul>
+                <br>
+                <li><b>Skip:</b></li>
+                    <ul>When a player places this card, the next player has to skip their turn. It can only be played on a card that matches by color, <br/>
+                        or on another Skip card.</ul>
+                <br>
+                <li><b>Draw Two:</b></li>
+                    <ul>When a person places this card, the next player will have to pick up two cards and forfeit his/her turn. It can only be played on<br/>
+                        a card that matches by color, or on another Draw Two</ul>
+                <br>
+                <li><b>Wild:</b></li>
+                    <ul>This card represents all four colors, and can be placed on any card. The player has to state which color it will represent</ul>
+                <br>
+                <li><b>Wild - Draw Four:</b></li>
+                    <ul>This acts just like the wild card except that the next player also has to draw four cards</ul>
+            </ul>
+        </p>
+        <hr>
+        <p>
+            <h3>The Game</h3>
+            <img src="pics/GameField3.png" width="500">
+        </p>
+        <p>
+            <h3>Graphical UI</h3>
+
+            To Enter the Game click on "Enter". If you want to close the window click on "Exit".<br/>
+            <img src="pics/GameField1.png" width="500">
+            <br/><br/>
+            If you are on turn, your cards are invisible. Click on the "show cards" Button on the right site, to make your cards visible.<br/>
+            If you want to draw a card from the Draw Pile, you have to click the Draw Pile Button on the left site.<br/>
+            <img src="pics/GameField2.png" width="500">
+            <img src="pics/GameField3.png" width="500">
+            <br/><br/>
+            If you want to set a "Wild" Card, you have choose a wishcolor. click one of Color Buttons to set your wishcolor.<br/>
+            <img src="pics/GameField5.png" width="500">
+            <br/><br/>
+            If you have only one or two cards and you want to put a card on the Discard Pile, you have to click on the UNO-Button to call "UNO!".<br/>
+            <img src="pics/GameField4.png" width="500">
+            <br/><br/>
+            If the game is over, you can play another game with the "yes" Button or close the window with the "no" Button.<br/>
+            <img src="pics/GameField.png" width="500">
+            <br/><br/>
+        </p>
+        <hr>
+        <p>
+            <h3>Technical UI</h3>
+            You can write various instructions to play with the TUI.
+            <br/>
+            <ul>
+                <li><b>Remove a card from your hand:</b></li>
+                    <ul>r [index] [Optional: WishColor]</ul>
+                <br>
+                <li><b>Get a card from the Draw Pile:</b></li>
+                    <ul>s</ul>
+                <br>
+                <li><b>Remove a card from your hand and call UNO:</b></li>
+                    <ul>u [index]</ul>
+                <br>
+                <li><b>Exit Game:</b></li>
+                    <ul>q</ul>
+                <br>
+                <li><b>Make Undo:</b></li>
+                    <ul>undo</ul>
+                <br>
+                <li><b>Make Redo:</b></li>
+                    <ul>redo</ul>
+                <br>
+                <li><b>Save Game:</b></li>
+                    <ul>save</ul>
+                <br>
+                <li><b>Load Game:</b></li>
+                    <ul>load</ul>
+                <br>
+            </ul>
+        </p>
+        <hr>
+        <p align="center">
+            <a href="https://github.com/konstantinz001/UNO_WebApplication"><button style="align-items: center;">GitHub</button></a>
+        </p>
+    </body>
+</html>
