@@ -12,7 +12,11 @@ class UnoController @Inject()(cc: ControllerComponents) extends AbstractControll
 
 
   def index() = Action { implicit request: Request[AnyContent] =>
-    Ok("OK")
+    Ok(views.html.index())
+  }
+
+  def about() = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.about())
   }
 
   def ownText(Text: String) = Action { implicit request: Request[AnyContent] =>
