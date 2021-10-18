@@ -1,0 +1,68 @@
+@(tui: UNO.aview.TUI)
+@import UNO.util.{State, gameStatsEvent, instructionEvent}
+
+
+@main("UNO-TUI") {
+    <h1>UNO-TUI</h1>
+    <hr>
+    <h5>GameBoard:</h5>
+    @{
+        //Line = (1)
+        //PLAYER = (2)
+        //Handscard = (4)
+        //Playstack = (7)
+        //Stackcards = (9)
+
+
+        val GameBoard = State.handle(gameStatsEvent()).split("\n")
+        val printGameBoard =
+        GameBoard(2) + "<br>" +
+        GameBoard(1) + "<br>" +
+        GameBoard(7) + "<br>" + "<br>" +
+        GameBoard(4) + "<br>" + "<br>" 
+
+        Html(printGameBoard)
+    }
+
+    
+    <h5>Instructions:</h5>
+    <form action=/instruction>
+        <br>
+        <label>Get Card:</label><br>
+        <input type="radio" id="input" name="input" value="s">
+        <br>
+        <br>
+        <label>Set Card:</label><br>
+        <input type="radio" id="input" name="input" value="r">
+        <input type="text" id="index" name="index">
+        <br>
+        <br>
+        <label>Call Uno:</label><br>
+        <input type="radio" id="input" name="input" value="u">
+        <br>
+        <br>
+        <label>Make Undo:</label><br>
+        <input type="radio" id="input" name="input" value="undo">
+        <br>
+        <br>
+        <label>Make Redo:</label><br>
+        <input type="radio" id="input" name="input" value="redo">
+        <br>
+        <br>
+        <label>Save Game:</label><br>
+        <input type="radio" id="input" name="input" value="save">
+        <br>
+        <br>
+        <label>Load Game:</label><br>
+        <input type="radio" id="input" name="input" value="load">
+        <br>
+        <br>
+        <label>Quit Game:</label><br>
+        <input type="radio" id="input" name="input" value="q">
+        <br>
+        <br>
+        <br>
+        <input type="submit">
+    </form>
+    
+}
