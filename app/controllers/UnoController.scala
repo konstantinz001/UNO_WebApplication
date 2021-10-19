@@ -15,7 +15,7 @@ class UnoController @Inject()(cc: ControllerComponents) extends AbstractControll
   val tui = new TUI(controller)
 
 //___________________TASK1_______________________________________________________________
-  def startGame() = Action { implicit request: Request[AnyContent] =>
+  /*def startGame() = Action { implicit request: Request[AnyContent] =>
     Ok(State.handle(instructionEvent()) + State.handle(gameStatsEvent()))
   }
 
@@ -58,7 +58,7 @@ class UnoController @Inject()(cc: ControllerComponents) extends AbstractControll
     tui.processInputLine("q")
     Ok(State.handle(instructionEvent()) + State.handle(gameStatsEvent()))
   }
-
+*/
 //_____________________________TASK2_____________________________________________
   def index() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index())
