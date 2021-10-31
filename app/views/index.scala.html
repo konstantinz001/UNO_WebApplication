@@ -1,17 +1,22 @@
 @()
 
 @main("UNO-Webapplication") {
-    <div class="body_main">
+
+<body class="index_body" background=@routes.Assets.versioned("images/pics/UNO_Background.png")>
+    <div>
+        <div class="topnav">
+            <a class="active" href="/">Home</a>
+            <a href="/tui">Tui</a>
+            <a href="/about">About</a>
+          </div>
+        
         <h1>WELCOME TO UNO</h1>
-
-        <img src="@routes.Assets.versioned("images/pics/UNO-Logo.png")" width="300"> <br/>
-
+        <img src=@routes.Assets.versioned("images/pics/UNO_Logo.png") >
         <br>
         <br>
         <hr>
-        <a href="/">Home-Page</a> <br>
-        <a href="/tui">UNO-Tui</a> <br>
-        <a href="/about">About</a> <br>
-    </div>
 
+        <a href="https://github.com/konstantinz001/UNO_WebApplication"><button class="glow-on-hover" type="button">GitHub</button>
+    </div>
+</body>
 }

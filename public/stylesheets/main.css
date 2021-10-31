@@ -1,1 +1,141 @@
-.body_main {background-color: blue;}
+.index_body {
+    color: whitesmoke;
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    font-size: 17pt;
+}
+
+.index_body div {
+    text-align: center;
+}
+
+.index_body p {
+    text-align: left;
+}
+
+/* __________________________Navbar____________________*/
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color: #601fb4;
+    color: white;
+  }
+
+/* __________________________Glow-Button____________________*/
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-size: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+
+/*_____________________Boxes_________________________*/
+.container {
+    width:auto;
+    height: auto;;
+    padding-top:20px;
+    padding-left:15px;
+    padding-right:15px;
+}
+#st-box {
+    float:left;
+    width:70%;
+    height: 100%;
+    border:none;
+    margin: 20pt;
+}
+#nd-box {
+    float:right;
+    width:auto;
+    height:100%;
+    border:none;
+    background-color: seashell;
+    color: black;
+    margin: 20pt;
+    padding: 15pt;
+    text-align: left;
+}
+#rd-box {
+    float:right;
+    width:180px;
+    height:160px;
+    background-color:white;
+    border:solid black;
+    margin: 20pt;
+}

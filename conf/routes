@@ -12,10 +12,10 @@
 #GET     /ownText/:Text               controllers.UnoController.ownText(Text: String)
 #GET     /about                       controllers.UnoController.about
 
-
-GET      /instruction/:input/:index         controllers.UnoController.instructionExecute(input: String, index: String)
-GET      /instruction/:input                controllers.UnoController.instructionExecute(input: String, index: String)
-GET      /instruction                       controllers.UnoController.instructionExecute(input: String, index: String)
+GET      /instruction/:input/:index         controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
+GET      /instruction/:input/:index         controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
+GET      /instruction/:input                controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
+GET      /instruction                       controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
 GET      /tui                               controllers.UnoController.tuiGame
 GET      /                                  controllers.UnoController.index
 GET      /about                             controllers.UnoController.about
