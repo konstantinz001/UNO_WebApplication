@@ -1,68 +1,167 @@
 @(tui: UNO.aview.TUI)
 @import UNO.util.{State, gameStatsEvent, instructionEvent}
 
+@*
+//Line = (1)
+//PLAYER = (2)
+//Handscard = (4)
+//Playstack = (7)
+//Stackcards = (9)
+*@
 
-@main("UNO-TUI") {
-    <h1>UNO-TUI</h1>
-    <hr>
-    <h5>GameBoard:</h5>
-    @{
-        //Line = (1)
-        //PLAYER = (2)
-        //Handscard = (4)
-        //Playstack = (7)
-        //Stackcards = (9)
+@printGameBoard() = @{
+val GameBoard = State.handle(gameStatsEvent()).split("\n")
 
+Html(GameBoard(2) + "<br>" +
+GameBoard(1) + "<br>" +
+GameBoard(7) + "<br>" + "<br>" +
+GameBoard(4) + "<br>" + "<br>")
+}
 
-        val GameBoard = State.handle(gameStatsEvent()).split("\n")
-        val printGameBoard =
-        GameBoard(2) + "<br>" +
-        GameBoard(1) + "<br>" +
-        GameBoard(7) + "<br>" + "<br>" +
-        GameBoard(4) + "<br>" + "<br>" 
+@getGameBoard() = @{
+State.handle(gameStatsEvent()).split("\n")
+}
 
-        Html(printGameBoard)
+@filterHandCards(cards: String) = @{
+
+var handCards = cards.replaceAll(" ", "").replaceAll("Handcards:", "").replaceAll("List", "")
+handCards = handCards.substring(2,handCards.length()-1)
+var handCard = handCards.split(",")
+handCard
+}
+
+@displayCard(card: String) = @{
+
+var color= ""
+if(card.contains("red")) {
+color="Red_"
+}
+
+else if (card.contains("blue")) {
+color="Blue_"
+}
+else if (card.contains("yellow")) {
+color="Yellow_"
+}
+else if (card.contains("green")) {
+color="Green_"
+}
+else {
+color="Black_"
+}
+
+var value= ""
+if (card.contains("<-->")) {
+    value="Reverse.png"
+    }
+    else if (card.contains("Ø")) {
+    value="Skip.png"
+    }
+    else if (card.contains("4+ColorSwitch")) {
+        value="4+ColorSwitch.png"
+    }
+    else if (card.contains("ColorSwitch")) {
+        value="ColorSwitch.png"
+    }
+    else if (card.contains("+2")) {
+    value="+2.png"
+    }
+    else if (card.contains("0")) {
+    value="0.png"
+    }
+    else if (card.contains("1")) {
+    value="1.png"
+    }
+    else if (card.contains("2")) {
+    value="2.png"
+    }
+    else if (card.contains("3")) {
+    value="3.png"
+    }
+    else if (card.contains("4")) {
+    value="4.png"
+    }
+    else if (card.contains("5")) {
+    value="5.png"
+    }
+    else if (card.contains("6")) {
+    value="6.png"
+    }
+    else if (card.contains("7")) {
+    value="7.png"
+    }
+    else if (card.contains("8")) {
+    value="8.png"
+    }
+    else if (card.contains("9")) {
+    value="9.png"
+    }
+    else {
+    value="Radio.png"
     }
 
-    
-    <h5>Instructions:</h5>
-    <form action=/instruction>
-        <br>
-        <label>Get Card:</label><br>
-        <input type="radio" id="input" name="input" value="s">
-        <br>
-        <br>
-        <label>Set Card:</label><br>
-        <input type="radio" id="input" name="input" value="r">
-        <input type="text" id="index" name="index">
-        <br>
-        <br>
-        <label>Call Uno:</label><br>
-        <input type="radio" id="input" name="input" value="u">
-        <br>
-        <br>
-        <label>Make Undo:</label><br>
-        <input type="radio" id="input" name="input" value="undo">
-        <br>
-        <br>
-        <label>Make Redo:</label><br>
-        <input type="radio" id="input" name="input" value="redo">
-        <br>
-        <br>
-        <label>Save Game:</label><br>
-        <input type="radio" id="input" name="input" value="save">
-        <br>
-        <br>
-        <label>Load Game:</label><br>
-        <input type="radio" id="input" name="input" value="load">
-        <br>
-        <br>
-        <label>Quit Game:</label><br>
-        <input type="radio" id="input" name="input" value="q">
-        <br>
-        <br>
-        <br>
-        <input type="submit">
-    </form>
-    
-}
+    color + value
+    }
+
+    @main("UNO-WebApplication") {
+
+    <body class="index_body" background=@routes.Assets.versioned("images/pics/UNO_Background.png")>
+
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a class="active" href="/tui">Tui</a>
+            <a href="/about">About</a>
+        </div>
+        <div class="container">
+            <div id=st-box>
+                <div>
+                    <h4>@getGameBoard()(2) it's your turn</h4>
+
+                    <h6>Playstack:</h6>
+                    <img src=@routes.Assets.versioned("images/pics/cards/" + displayCard(getGameBoard()(7)))
+                        width="120">
+                    <br>
+                    <h6>HandCards:</h6>
+                    @for(card <- filterHandCards(getGameBoard()(4))) { 
+                        <img src=@routes.Assets.versioned("images/pics/cards/" + displayCard(card)) width="120">
+                        }
+                </div>
+            </div>
+
+            <div id=nd-box>
+                <h5>Instructions:</h5>
+                <form action=/instruction>
+                    <label>Get Card:</label><br>
+                    <input type="radio" id="input" name="input" value="s">
+                    <br>
+                    <label>Set Card:</label><br>
+                    <input type="radio" id="input" name="input" value="r">
+                    <input type="text" id="unoIndex" name="unoIndex" value="">
+                    <br>
+                    <label>Call Uno:</label><br>
+                    <input type="radio" id="input" name="input" value="u">
+                    <input type="text" id="index" name="index" value="">
+                    <br>
+                    <label>Make Undo:</label><br>
+                    <input type="radio" id="input" name="input" value="undo">
+                    <br>
+                    <label>Make Redo:</label><br>
+                    <input type="radio" id="input" name="input" value="redo">
+                    <br>
+                    <label>Save Game:</label><br>
+                    <input type="radio" id="input" name="input" value="save">
+                    <br>
+                    <label>Load Game:</label><br>
+                    <input type="radio" id="input" name="input" value="load">
+                    <br>
+                    <label>Quit Game:</label><br>
+                    <input type="radio" id="input" name="input" value="q">
+                    <br>
+                    <br>
+
+                    <button class="glow-on-hover" type="submit">Enter</button>
+                </form>
+            </div>
+        </div>
+    </body>
+    }
