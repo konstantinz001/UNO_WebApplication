@@ -58,10 +58,10 @@ if (card.contains("<-->")) {
     value="Skip.png"
     }
     else if (card.contains("4+ColorSwitch")) {
-        value="4+ColorSwitch.png"
+    value="4+ColorSwitch.png"
     }
     else if (card.contains("ColorSwitch")) {
-        value="ColorSwitch.png"
+    value="ColorSwitch.png"
     }
     else if (card.contains("+2")) {
     value="+2.png"
@@ -106,15 +106,36 @@ if (card.contains("<-->")) {
     @main("UNO-WebApplication") {
 
     <body class="index_body" background=@routes.Assets.versioned("images/pics/UNO_Background.png")>
+        <div>
+            <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/"><img src=@routes.Assets.versioned("images/pics/UNO_Logo.png")
+                            width="50"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/tui">Tui</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/about">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
 
-        <div class="topnav">
-            <a href="/">Home</a>
-            <a class="active" href="/tui">Tui</a>
-            <a href="/about">About</a>
-        </div>
-        <div class="container">
-            <div id=st-box>
-                <div>
+            <br><br>
+            <div class="container">
+                <div id=st-box>
+
                     <h4>@getGameBoard()(2) it's your turn</h4>
 
                     <h6>Playstack:</h6>
@@ -122,45 +143,45 @@ if (card.contains("<-->")) {
                         width="120">
                     <br>
                     <h6>HandCards:</h6>
-                    @for(card <- filterHandCards(getGameBoard()(4))) { 
-                        <img src=@routes.Assets.versioned("images/pics/cards/" + displayCard(card)) width="120">
+                    @for(card <- filterHandCards(getGameBoard()(4))) { <img
+                        src=@routes.Assets.versioned("images/pics/cards/" + displayCard(card)) width="120">
                         }
                 </div>
-            </div>
 
-            <div id=nd-box>
-                <h5>Instructions:</h5>
-                <form action=/instruction>
-                    <label>Get Card:</label><br>
-                    <input type="radio" id="input" name="input" value="s">
-                    <br>
-                    <label>Set Card:</label><br>
-                    <input type="radio" id="input" name="input" value="r">
-                    <input type="text" id="unoIndex" name="unoIndex" value="">
-                    <br>
-                    <label>Call Uno:</label><br>
-                    <input type="radio" id="input" name="input" value="u">
-                    <input type="text" id="index" name="index" value="">
-                    <br>
-                    <label>Make Undo:</label><br>
-                    <input type="radio" id="input" name="input" value="undo">
-                    <br>
-                    <label>Make Redo:</label><br>
-                    <input type="radio" id="input" name="input" value="redo">
-                    <br>
-                    <label>Save Game:</label><br>
-                    <input type="radio" id="input" name="input" value="save">
-                    <br>
-                    <label>Load Game:</label><br>
-                    <input type="radio" id="input" name="input" value="load">
-                    <br>
-                    <label>Quit Game:</label><br>
-                    <input type="radio" id="input" name="input" value="q">
-                    <br>
-                    <br>
+                <div id=nd-box>
+                    <h5>Instructions:</h5>
+                    <form action=/instruction>
+                        <label>Get Card:</label><br>
+                        <input type="radio" id="input" name="input" value="s">
+                        <br>
+                        <label>Set Card:</label><br>
+                        <input type="radio" id="input" name="input" value="r">
+                        <input type="text" id="unoIndex" name="unoIndex" value="">
+                        <br>
+                        <label>Call Uno:</label><br>
+                        <input type="radio" id="input" name="input" value="u">
+                        <input type="text" id="index" name="index" value="">
+                        <br>
+                        <label>Make Undo:</label><br>
+                        <input type="radio" id="input" name="input" value="undo">
+                        <br>
+                        <label>Make Redo:</label><br>
+                        <input type="radio" id="input" name="input" value="redo">
+                        <br>
+                        <label>Save Game:</label><br>
+                        <input type="radio" id="input" name="input" value="save">
+                        <br>
+                        <label>Load Game:</label><br>
+                        <input type="radio" id="input" name="input" value="load">
+                        <br>
+                        <label>Quit Game:</label><br>
+                        <input type="radio" id="input" name="input" value="q">
+                        <br>
+                        <br>
 
-                    <button class="glow-on-hover" type="submit">Enter</button>
-                </form>
+                        <button class="glow-on-hover" type="submit">Enter</button>
+                    </form>
+                </div>
             </div>
         </div>
     </body>

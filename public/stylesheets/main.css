@@ -115,14 +115,18 @@
 }
 #st-box {
     float:left;
-    width:70%;
+    -ms-flex: 0 0 58.333333%;
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
     height: 100%;
     border:none;
     margin: 20pt;
 }
 #nd-box {
     float:right;
-    width:auto;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
     height:100%;
     border:none;
     background-color: seashell;
@@ -130,6 +134,7 @@
     margin: 20pt;
     padding: 15pt;
     text-align: left;
+    font-size: 12pt;
 }
 #rd-box {
     float:right;
