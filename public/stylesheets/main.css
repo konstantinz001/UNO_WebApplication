@@ -1,45 +1,3 @@
-.index_body {
-    color: whitesmoke;
-    font-family: Georgia, 'Times New Roman', Times, serif; 
-    font-size: 17pt;
-}
-
-.index_body div {
-    text-align: center;
-}
-
-.index_body p {
-    text-align: left;
-}
-
-/* __________________________Navbar____________________*/
-/* Add a black background color to the top navigation */
-.topnav {
-    background-color: #333;
-    overflow: hidden;
-  }
-  
-  /* Style the links inside the navigation bar */
-  .topnav a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  
-  /* Change the color of links on hover */
-  .topnav a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  
-  /* Add a color to the active/current link */
-  .topnav a.active {
-    background-color: #601fb4;
-    color: white;
-  }
 
 /* __________________________Glow-Button____________________*/
 .glow-on-hover {
@@ -104,43 +62,80 @@
     100% { background-position: 0 0; }
 }
 
-
-/*_____________________Boxes_________________________*/
-.container {
-    width:auto;
-    height: auto;;
-    padding-top:20px;
-    padding-left:15px;
-    padding-right:15px;
-}
-#st-box {
-    float:left;
-    -ms-flex: 0 0 58.333333%;
-    flex: 0 0 58.333333%;
-    max-width: 58.333333%;
-    height: 100%;
-    border:none;
-    margin: 20pt;
-}
-#nd-box {
+.subcontent {
     float:right;
-    -ms-flex: 0 0 33.333333%;
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
-    height:100%;
-    border:none;
     background-color: seashell;
     color: black;
     margin: 20pt;
     padding: 15pt;
     text-align: left;
     font-size: 12pt;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
-#rd-box {
-    float:right;
-    width:180px;
-    height:160px;
-    background-color:white;
-    border:solid black;
-    margin: 20pt;
+
+.maincontent_Center {
+    float: left;
+    color: whitesmoke;
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    font-size: 17pt;
+    text-align: center;
+    margin: 10pt;
 }
+
+.maincontent_Left {
+    float: left;
+    color: whitesmoke;
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    font-size: 17pt;
+    text-align: left;
+    margin: 10pt;
+}
+
+.navBar {
+    color: whitesmoke;
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    font-size: 15pt;
+    text-align: center;
+}
+
+
+
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }

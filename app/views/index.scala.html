@@ -2,38 +2,45 @@
 
 @main("UNO-Webapplication") {
 
-<body class="index_body" background=@routes.Assets.versioned("images/pics/UNO_Background.png")>
-    <div>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/"><img src=@routes.Assets.versioned("images/pics/UNO_Logo.png") width="50"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                      <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/tui">Tui</a>
-                    </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
-                      </li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
-
-        
-        <h1>WELCOME TO UNO</h1>
-        <img src=@routes.Assets.versioned("images/pics/UNO_Logo.png") >
-        <br>
-        <br>
-        <hr>
-
-        <a href="https://github.com/konstantinz001/UNO_WebApplication"><button class="glow-on-hover" type="button">GitHub</button>
+<body background=@routes.Assets.versioned("images/pics/UNO_Background.png")>
+  <div>
+    <div class="navBar">
+      <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/"><img src=@routes.Assets.versioned("images/pics/UNO_Logo.png") width="50"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/tui">Tui</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </div>
+    <br><br><br>
+
+    <div class="maincontent_Center">
+      <h1>WELCOME TO UNO</h1>
+      <img src=@routes.Assets.versioned("images/pics/UNO_Logo.png")>
+      <br>
+      <br>
+      <hr>
+
+      <a href="https://github.com/konstantinz001/UNO_WebApplication"><button class="glow-on-hover"
+          type="button" target="_blank">GitHub</button>
+    </div>
+  </div>
 </body>
 }
