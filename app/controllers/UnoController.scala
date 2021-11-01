@@ -11,6 +11,10 @@ class UnoController @Inject()(cc: ControllerComponents) extends AbstractControll
   val controller: controllerInterface = UNO.UnoGame.controller
   val tui = new TUI(controller)
 
+  def test() = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.test())
+  }
+
   def index() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index())
   }
