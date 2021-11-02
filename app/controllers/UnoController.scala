@@ -19,7 +19,7 @@ class UnoController @Inject()(cc: ControllerComponents) extends AbstractControll
     Ok(views.html.about())
   }
 
-  def tuiGame = Action {
+  def tuiGame() = Action {
     Ok(views.html.tui(tui))
   }
 

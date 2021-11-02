@@ -12,6 +12,7 @@
 @printGameBoard() = @{
 val GameBoard = State.handle(gameStatsEvent()).split("\n")
 
+
 Html(GameBoard(2) + "<br>" +
 GameBoard(1) + "<br>" +
 GameBoard(7) + "<br>" + "<br>" +
@@ -153,9 +154,9 @@ if (card.contains("<-->")) {
                         <br>
                         <br>
                         <h6>HandCards:</h6>
-
-                        @for(card <- filterHandCards(getGameBoard()(4))) { <img class="img-fluid"
-                            src=@routes.Assets.versioned("images/pics/cards/" + displayCard(card)) width="100" title="Index:">
+                        
+                        @for(i <- 0 until filterHandCards(getGameBoard()(4)).size) {
+                            <img class="img-fluid" src=@routes.Assets.versioned("images/pics/cards/" + displayCard(filterHandCards(getGameBoard()(4))(i))) width="100" title= "Index: @i">
                         }
                     </div>
                 </div>
