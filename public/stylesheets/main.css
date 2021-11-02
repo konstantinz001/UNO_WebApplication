@@ -63,7 +63,7 @@
 }
 
 .subcontent {
-    float:right;
+    float:left;
     background-color: seashell;
     color: black;
     margin: 20pt;
