@@ -131,6 +131,13 @@ if (card.contains("<-->")) {
                             </ul>
                         </div>
                     </div>
+                    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/konstantinz001/UNO_WebApplication" target="_blank">GitHub</a>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
             </div>
             <br><br><br>
@@ -142,13 +149,13 @@ if (card.contains("<-->")) {
 
                         <h6>Playstack:</h6>
                         <img src=@routes.Assets.versioned("images/pics/cards/" + displayCard(getGameBoard()(7)))
-                            width="120">
+                            width="100">
                         <br>
                         <br>
                         <h6>HandCards:</h6>
 
-                        @for(card <- filterHandCards(getGameBoard()(4))) { <img
-                            src=@routes.Assets.versioned("images/pics/cards/" + displayCard(card)) width="120" title="Index:">
+                        @for(card <- filterHandCards(getGameBoard()(4))) { <img class="img-fluid"
+                            src=@routes.Assets.versioned("images/pics/cards/" + displayCard(card)) width="100" title="Index:">
                         }
                     </div>
                 </div>
