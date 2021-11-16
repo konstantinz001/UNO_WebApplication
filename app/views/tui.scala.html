@@ -1,5 +1,7 @@
 @(tui: UNO.aview.TUI)
 @import UNO.util.{State, gameStatsEvent, instructionEvent}
+@import UNO.controller.controllerComponent.controllerInterface
+
 
 @*
 //Line = (1)
@@ -110,6 +112,7 @@ if (card.contains("<-->")) {
         <div>
             <div class="navBar1">
                 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+                    <script src="@routes.Assets.versioned("javascripts/UNO.js")" type="text/javascript"></script>
                     <div class="container-fluid">
                         <a class="navbar-brand" href="/"><img src=@routes.Assets.versioned("images/pics/UNO_Logo.png")
                                 width="50"></a>
@@ -129,6 +132,9 @@ if (card.contains("<-->")) {
                                 <li class="nav-item">
                                     <a class="nav-link" href="/about">About</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="newGame" href="/tui">NewGame</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -142,59 +148,23 @@ if (card.contains("<-->")) {
                 </nav>
             </div>
             <br><br><br>
-            <div class="row">
-                <div class="col-md-7">
+            <div>
+                <div>
                     <div class="maincontent_Center">
 
                         <h4>@getGameBoard()(2) it's your turn</h4>
+                        <div class="maincontent_Left">
+                        <img src=@routes.Assets.versioned("images/pics/cards/Stack.png") width="100" class="Pic_Center" id="stackCards">
+                        <img src=@routes.Assets.versioned("images/pics/UNO_Logo.png") width="200" class="Pic_Center" id="unoCall" align="Right">
+                        </div>
 
-                        <h6>Playstack:</h6>
-                        <img src=@routes.Assets.versioned("images/pics/cards/" + displayCard(getGameBoard()(7)))
-                            width="100">
+                        <img src=@routes.Assets.versioned("images/pics/cards/" + displayCard(getGameBoard()(7))) width="100" title= "Index: Playstack">
                         <br>
                         <br>
-                        <h6>HandCards:</h6>
                         
                         @for(i <- 0 until filterHandCards(getGameBoard()(4)).size) {
-                            <img class="img-fluid" src=@routes.Assets.versioned("images/pics/cards/" + displayCard(filterHandCards(getGameBoard()(4))(i))) width="100" title= "Index: @i">
+                            <img class="img-fluid handCards" src=@routes.Assets.versioned("images/pics/cards/" + displayCard(filterHandCards(getGameBoard()(4))(i))) width="100" id= "@i">
                         }
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="subcontent">
-                        <h5 align="center"><b>Instructions</b></h5>
-                                <form action=/instruction>
-                                    <label>Get Card:</label><br>
-                                    <input type="radio" id="input" name="input" value="s">
-                                    <br>
-                                    <label>Set Card:</label><br>
-                                    <input type="radio" id="input" name="input" value="r">
-                                    <input type="text" id="unoIndex" name="unoIndex" value="">
-                                    <br>
-                                    <label>Call Uno:</label><br>
-                                    <input type="radio" id="input" name="input" value="u">
-                                    <input type="text" id="index" name="index" value="">
-                                    <br>
-                                    <label>Make Undo:</label><br>
-                                    <input type="radio" id="input" name="input" value="undo">
-                                    <br>
-                                    <label>Make Redo:</label><br>
-                                    <input type="radio" id="input" name="input" value="redo">
-                                    <br>
-                                    <label>Save Game:</label><br>
-                                    <input type="radio" id="input" name="input" value="save">
-                                    <br>
-                                    <label>Load Game:</label><br>
-                                    <input type="radio" id="input" name="input" value="load">
-                                    <br>
-                                    <label>Quit Game:</label><br>
-                                    <input type="radio" id="input" name="input" value="q">
-                                    <br>
-                                    <br>
-
-                                    <p align="center"><button class="glow-on-hover" type="submit">Enter</button></p>
-                                </form>
                     </div>
                 </div>
             </div>
