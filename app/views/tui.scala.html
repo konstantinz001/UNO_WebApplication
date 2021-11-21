@@ -2,172 +2,42 @@
 @import UNO.util.{State, gameStatsEvent, instructionEvent}
 @import UNO.controller.controllerComponent.controllerInterface
 
+@main("UNO-WebApplication") {
 
-@*
-//Line = (1)
-//PLAYER = (2)
-//Handscard = (4)
-//Playstack = (7)
-//Stackcards = (9)
-*@
+<body>
+    <div>
+        <br><br><br>
+        <div id=mainGame>
+            <div class="maincontent_Center">
+                <div id="gameMessage">
+                </div>
+                <div class="maincontent_Left">
+                    <img src=@routes.Assets.versioned("images/pics/cards/Stack.png") width="100" class="Pic_Center"
+                        id="pullStack" onclick="getCard()">
 
-@printGameBoard() = @{
-val GameBoard = State.handle(gameStatsEvent()).split("\n")
-
-
-Html(GameBoard(2) + "<br>" +
-GameBoard(1) + "<br>" +
-GameBoard(7) + "<br>" + "<br>" +
-GameBoard(4) + "<br>" + "<br>")
-}
-
-@getGameBoard() = @{
-State.handle(gameStatsEvent()).split("\n")
-}
-
-@filterHandCards(cards: String) = @{
-
-var handCards = cards.replaceAll(" ", "").replaceAll("Handcards:", "").replaceAll("List", "")
-handCards = handCards.substring(2,handCards.length()-1)
-var handCard = handCards.split(",")
-handCard
-}
-
-@displayCard(card: String) = @{
-
-var color= ""
-if(card.contains("red")) {
-color="Red_"
-}
-
-else if (card.contains("blue")) {
-color="Blue_"
-}
-else if (card.contains("yellow")) {
-color="Yellow_"
-}
-else if (card.contains("green")) {
-color="Green_"
-}
-else {
-color="Black_"
-}
-
-var value= ""
-if (card.contains("<-->")) {
-    value="Reverse.png"
-    }
-    else if (card.contains("Ø")) {
-    value="Skip.png"
-    }
-    else if (card.contains("4+ColorSwitch")) {
-    value="4+ColorSwitch.png"
-    }
-    else if (card.contains("ColorSwitch")) {
-    value="ColorSwitch.png"
-    }
-    else if (card.contains("+2")) {
-    value="+2.png"
-    }
-    else if (card.contains("0")) {
-    value="0.png"
-    }
-    else if (card.contains("1")) {
-    value="1.png"
-    }
-    else if (card.contains("2")) {
-    value="2.png"
-    }
-    else if (card.contains("3")) {
-    value="3.png"
-    }
-    else if (card.contains("4")) {
-    value="4.png"
-    }
-    else if (card.contains("5")) {
-    value="5.png"
-    }
-    else if (card.contains("6")) {
-    value="6.png"
-    }
-    else if (card.contains("7")) {
-    value="7.png"
-    }
-    else if (card.contains("8")) {
-    value="8.png"
-    }
-    else if (card.contains("9")) {
-    value="9.png"
-    }
-    else {
-    value="Radio.png"
-    }
-
-    color + value
-    }
-
-    @main("UNO-WebApplication") {
-
-    <body background=@routes.Assets.versioned("images/pics/UNO_Background.png")>
-        <div>
-            <div class="navBar1">
-                <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-                    <script src="@routes.Assets.versioned("javascripts/UNO.js")" type="text/javascript"></script>
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="/"><img src=@routes.Assets.versioned("images/pics/UNO_Logo.png")
-                                width="50"></a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="/tui">Tui</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/about">About</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="newGame" href="/tui">NewGame</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://github.com/konstantinz001/UNO_WebApplication" target="_blank">GitHub</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            <br><br><br>
-            <div>
-                <div>
-                    <div class="maincontent_Center">
-
-                        <h4>@getGameBoard()(2) it's your turn</h4>
-                        <div class="maincontent_Left">
-                        <img src=@routes.Assets.versioned("images/pics/cards/Stack.png") width="100" class="Pic_Center" id="stackCards">
-                        <img src=@routes.Assets.versioned("images/pics/UNO_Logo.png") width="200" class="Pic_Center" id="unoCall" align="Right">
-                        </div>
-
-                        <img src=@routes.Assets.versioned("images/pics/cards/" + displayCard(getGameBoard()(7))) width="100" title= "Index: Playstack">
-                        <br>
-                        <br>
-                        
-                        @for(i <- 0 until filterHandCards(getGameBoard()(4)).size) {
-                            <img class="img-fluid handCards" src=@routes.Assets.versioned("images/pics/cards/" + displayCard(filterHandCards(getGameBoard()(4))(i))) width="100" id= "@i">
-                        }
-                    </div>
+                    <img src=@routes.Assets.versioned("images/pics/UNO_Logo.png") width="200" class="Pic_Center"
+                        id="unoCall" align="Right" onclick="clickUno()">
+                </div>
+                <div id=stackCard></div>
+                <br>
+                <br>
+                <div id="handCard">
                 </div>
             </div>
         </div>
-    </body>
-    }
+        <div id="wishGame">
+            <div class="maincontent_Center">
+                <div id="wishMessage">WishColor!</div>
+                    <img src=@routes.Assets.versioned("images/pics/cards/Red_Radio.png") width="100" class="Pic_Center"
+                        onclick="setWishColor('red')">
+                    <img src=@routes.Assets.versioned("images/pics/cards/Green_Radio.png") width="100" class="Pic_Center"
+                        onclick="setWishColor('green')">
+                    <img src=@routes.Assets.versioned("images/pics/cards/Yellow_Radio.png") width="100" class="Pic_Center"
+                        onclick="setWishColor('yellow')">
+                    <img src=@routes.Assets.versioned("images/pics/cards/Blue_Radio.png") width="100" class="Pic_Center"
+                        onclick="setWishColor('blue')">
+            </div>
+        </div>
+    </div>
+</body>
+}

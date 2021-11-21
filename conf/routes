@@ -1,26 +1,17 @@
 
-#GET     /                            controllers.UnoController.startGame
-#GET     /set/:index                  controllers.UnoController.setGame(index: String)
-#GET     /uno/:index                  controllers.UnoController.unoGame(index: String)
-#GET     /get                         controllers.UnoController.getGame
-#GET     /load                        controllers.UnoController.loadGame
-#GET     /save                        controllers.UnoController.saveGame
-#GET     /redo                        controllers.UnoController.redoGame
-#GET     /undo                        controllers.UnoController.undoGame
-#GET     /quit                        controllers.UnoController.quitGame
-#GET     /index                       controllers.UnoController.index
-#GET     /ownText/:Text               controllers.UnoController.ownText(Text: String)
-#GET     /about                       controllers.UnoController.about
+GET     /instruction/:input/:index         controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
 
-GET      /instruction/:input/:index         controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
-GET      /instruction/:input/:index         controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
-GET      /instruction/:input                controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
-GET      /instruction                       controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
-GET      /tui                               controllers.UnoController.tuiGame
-GET      /                                  controllers.UnoController.index
-GET      /about                             controllers.UnoController.about
-GET      /test                              controllers.UnoController.test
-GET      /newGame                           controllers.UnoController.newGame
+GET     /instruction/:input                controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
+GET     /instruction                       controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
+GET     /tui                               controllers.UnoController.tuiGame
+GET     /                                  controllers.UnoController.index
+GET     /about                             controllers.UnoController.about
+GET     /test                              controllers.UnoController.test
+GET     /json                              controllers.UnoController.gameToJson
+GET     /get                               controllers.UnoController.getCard
+GET     /set/:index                        controllers.UnoController.setCard(index: String)
+GET     /call/:index                       controllers.UnoController.setUnoCard(index: String)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

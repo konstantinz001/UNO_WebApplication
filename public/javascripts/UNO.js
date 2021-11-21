@@ -1,56 +1,208 @@
-
-var handCards = document.getElementsByClassName("handCards");
-var unoCall = document.getElementById("unoCall");
-var stackCards = document.getElementById("stackCards");
-var newGame = document.getElementById("newGame");
-var callUno = false;
-var refresh = false;
-
-unoCall.addEventListener("click", function() {
-  if(callUno ===true) {
-    callUno = false;
-    unoCall.setAttribute('src', "assets/images/pics/UNO_Logo.png")
-  }
-  else {
-    callUno = true;
-    unoCall.setAttribute('src', "assets/images/pics/CallUno.png")
-  }
+$(document).ready(function () {
+  console.log("Document is ready, filling grid");
+  loadJson();
 });
 
-newGame.addEventListener("click", function() {
-  var answer = window.confirm("New game?");
-  if (answer) {
-    newGame.setAttribute('href', "/newGame")
-  }
-});
+let playStackCard = '';
+let playernameCurrent = '';
+let playernameNext = '';
+let playerCardsCurrent = [];
+let playerCardsNext = [];
+let callUno = false;
+let wishColor = "";
+let wishValue = "";
 
-for(var i = 0; i < handCards.length; i++){
-  handCards[i].addEventListener("click", function() {
-    var sign = ""
-    if(this.getAttribute('src').includes('Black')) {
-      while (sign === "") {
-        var sign = prompt("Wishcolor?");
-      }
-      sign = "§" + sign
+
+var currentPath = window.location.pathname;
+if (currentPath.includes("instruction")) {
+  currentPath = "/tui";
+}
+var pages = document.getElementById(currentPath).className = "nav-link active";
+
+
+function loadJson() {
+  $.ajax({
+    method: 'GET',
+    url: '/json',
+    dataType: 'json',
+
+    success: (result) => {
+      playStackCard = result.game.playStackCard;
+      playernameCurrent = result.game.playerListNameCurrent;
+      playerCardsCurrent = result.game.playerListCardsCurrent;
+
+      playernameNext = result.game.playerListNameNext;
+      playerCardsNext = result.game.playerListCardsNext;
+      updateGame();
+    },
+    error: () => {
+      alert('Could not load Json!');
     }
-    setCard(this.getAttribute('id') + sign, callUno);
   });
-};
+}
 
-stackCards.addEventListener("click", function() {
-  getCard();
-});
+function updateGame() {
+  wishColor = "";
+  wishValue = "";
+  callUno = false;
+  var index = 0;
+  $('#mainGame').css('visibility', 'visible');
+  $('#wishGame').css('visibility', 'collapse');
+  $('#unoCall').attr('src', "assets/images/pics/UNO_Logo.png")
+  $('#gameMessage').empty();
+  $('#gameMessage').append('<h4>PLAYER ' + playernameCurrent + 'it´s your turn</h4>');
+  $('#stackCard').empty();
+  $('#stackCard').append('<img class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(playStackCard) + '" width="100" id= "PlayStack">');
+  $('#handCard').empty();
+  playerCardsCurrent.forEach(handcard => {
+    if(setCardPicPath(handcard).includes("Black")) {
+      $('#handCard').append('<img onclick="setBlackCard(' + index + ')" class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(handcard) + '" width="100" id= "' + index + '">');
 
-function setCard(cardIndex, callUno) {
-  alert(cardIndex)
-  if(callUno===false) {
-    window.location = "/instruction?input=r&unoIndex=&index=" + cardIndex;
+    }else {
+      $('#handCard').append('<img onclick="setCard(' + index + ')" class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(handcard) + '" width="100" id= "' + index + '">');
+    }
+    index = index + 1;
+  })
+}
+
+async function setBlackCard(cardIndex) {
+  $('#mainGame').css('visibility', 'collapse');
+  $('#wishGame').css('visibility', 'visible');
+  wishValue = cardIndex;
+}
+
+
+async function setWishColor(color) {
+  wishColor = color;
+  setCard(wishValue + " " + wishColor);
+
+}
+
+
+
+function setCard(cardIndex) {
+
+  if (callUno === false) {
+    $.ajax({
+      method: 'GET',
+      url: '/set/' + cardIndex,
+      dataType: 'text',
+
+      success: () => {
+        loadJson();
+      },
+      error: () => {
+        alert('Could not get card!');
+      }
+    });
   }
   else {
-    window.location = "/instruction?input=r&unoIndex=" + cardIndex +"&index=";
+    $.ajax({
+      method: 'GET',
+      url: '/call/' + cardIndex,
+      dataType: 'text',
+
+      success: () => {
+          loadJson();
+      },
+      error: () => {
+          alert('Could not set card!');
+      }
+  });
   }
 }
 
 function getCard() {
-  window.location = "/instruction?input=s&unoIndex=&index=";
+  $.ajax({
+    method: 'GET',
+    url: '/get',
+    dataType: 'text',
+
+    success: () => {
+      loadJson();
+    },
+    error: () => {
+      alert('Could not get card!');
+    }
+  });
+}
+
+async function clickUno() {
+  if (callUno === true) {
+    callUno = false;
+    $('#unoCall').attr('src', "assets/images/pics/UNO_Logo.png")
+  }
+  else {
+    callUno = true;
+    $('#unoCall').attr('src', "assets/images/pics/CallUno.png")
+  }
+}
+
+function setCardPicPath(card) {
+  var color = "";
+  var value = "";
+  if (card.includes("red")) {
+    color = "Red_";
+  }
+  else if (card.includes("blue")) {
+    color = "Blue_";
+  }
+  else if (card.includes("yellow")) {
+    color = "Yellow_";
+  }
+  else if (card.includes("green")) {
+    color = "Green_";
+  }
+  else {
+    color = "Black_";
+  }
+  if (card.includes("<-->")) {
+    value = "Reverse.png";
+  }
+  else if (card.includes("Ø")) {
+    value = "Skip.png";
+  }
+  else if (card.includes("4+ColorSwitch")) {
+    value = "4+ColorSwitch.png";
+  }
+  else if (card.includes("ColorSwitch")) {
+    value = "ColorSwitch.png";
+  }
+  else if (card.includes("+2")) {
+    value = "+2.png";
+  }
+  else if (card.includes("0")) {
+    value = "0.png";
+  }
+  else if (card.includes("1")) {
+    value = "1.png";
+  }
+  else if (card.includes("2")) {
+    value = "2.png";
+  }
+  else if (card.includes("3")) {
+    value = "3.png";
+  }
+  else if (card.includes("4")) {
+    value = "4.png";
+  }
+  else if (card.includes("5")) {
+    value = "5.png";
+  }
+  else if (card.includes("6")) {
+    value = "6.png";
+  }
+  else if (card.includes("7")) {
+    value = "7.png";
+  }
+  else if (card.includes("8")) {
+    value = "8.png";
+  }
+  else if (card.includes("9")) {
+    value = "9.png";
+  }
+  else {
+    value = "Radio.png";
+  }
+  return color + value
 }

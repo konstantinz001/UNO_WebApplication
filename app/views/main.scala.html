@@ -13,17 +13,52 @@
         <title>@title</title>
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/pics/UNO_Logo.png")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
-        <script src="@routes.Assets.versioned("javascripts/UNO.js")" type="text/javascript" defer></script>
-        <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-
-
         <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")" >
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.6.js")" type="text/javascript"></script>
+        
+        
+        
 
     </head>
-    <body>
+    <body background=@routes.Assets.versioned("images/pics/UNO_Background.png")>
+        <div class="navBar1">
+            <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/"><img src=@routes.Assets.versioned("images/pics/UNO_Logo.png")
+                            width="50"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" id="/" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="/tui" href="/tui">Tui</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="/about" href="/about">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/konstantinz001/UNO_WebApplication" target="_blank">GitHub</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
         @* And here's where we render the `Html` object containing
          * the page content. *@
         @content
+         <script src="@routes.Assets.versioned("javascripts/UNO.js")" type="text/javascript" defer></script>
+        <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript" defer></script>
+        
     </body>
 </html>
