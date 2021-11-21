@@ -5,12 +5,11 @@ var stackCards = document.getElementById("stackCards");
 var newGame = document.getElementById("newGame");
 var callUno = false;
 var refresh = false;
-var color = "";
 
 unoCall.addEventListener("click", function() {
   if(callUno ===true) {
     callUno = false;
-    unoCall.setAttribute('src', "assets/images/pics/CallUno.png")
+    unoCall.setAttribute('src', "assets/images/pics/UNO_Logo.png")
   }
   else {
     callUno = true;
