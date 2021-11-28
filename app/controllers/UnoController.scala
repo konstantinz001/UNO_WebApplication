@@ -56,6 +56,12 @@ class UnoController @Inject()(cc: ControllerComponents)(implicit system: ActorSy
     Ok(views.html.tui(tui))
   }
 
+  def gameToJsonAction(): Action[AnyContent] = Action {
+    Ok(gameToJson())
+  }
+
+
+
   def gameToJson(): String = {
       Json.prettyPrint(
         Json.obj(
@@ -112,6 +118,10 @@ def socket: WebSocket = WebSocket.accept[String, String] { request =>
         println("Received GameChanged-Event from Controller")
         sendJsonToClient()
       }
+      case event: welcomeStates => {
+        sendJsonToClient()
+      }
+      
     }
 
     def sendJsonToClient(): Unit = {
