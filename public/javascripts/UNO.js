@@ -1,6 +1,7 @@
 $(document).ready(function () {
   console.log("Document is ready, filling grid");
   loadJson();
+  connectWebSocket();
 });
 
 let playStackCard = '';
@@ -137,7 +138,7 @@ async function clickUno() {
   }
   else {
     callUno = true;
-    $('#unoCall').attr('src', "assets/images/pics/CallUno.png")
+    $('#unoCall').attr('src', "assets/images/pisc/CallUno.png")
   }
 }
 
@@ -172,7 +173,8 @@ function connectWebSocket() {
 
   websocket.onmessage = function (e) {
       let json = JSON.parse(e.data);
-      loadGame(json);
+      updateGame();
+      loadJson(json);
   }
 }
 
