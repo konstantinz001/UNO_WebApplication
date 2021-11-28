@@ -119,6 +119,7 @@ def socket: WebSocket = WebSocket.accept[String, String] { request =>
         sendJsonToClient()
       }
       case event: welcomeStates => {
+        println("Welcome")
         sendJsonToClient()
       }
       
