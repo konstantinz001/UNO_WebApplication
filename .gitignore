@@ -5,6 +5,8 @@ target
 /.vscode
 /.bsp
 /.bloop
+/project/.bloop
+/project/project/.bloop
 /.idea
 /.idea_modules
 /.classpath
