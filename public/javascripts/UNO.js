@@ -173,8 +173,18 @@ function connectWebSocket() {
 
   websocket.onmessage = function (e) {
       let json = JSON.parse(e.data);
-      updateGame();
-      loadJson(json);
+      $.ajax({
+          method: 'GET',
+          url: '/json',
+          dataType: 'json',
+
+          success: (result) => {
+              loadJson(result);
+          },
+          error: () => {
+              alert('Could not load Json!');
+          }
+      });
   }
 }
 
