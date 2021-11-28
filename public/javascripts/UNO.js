@@ -44,6 +44,7 @@ function loadJson() {
 }
 
 function updateGame() {
+  console.log("passt")
   wishColor = "";
   wishValue = "";
   callUno = false;
@@ -69,8 +70,8 @@ function updateGame() {
 }
 
 async function setBlackCard(cardIndex) {
-  $('#mainGame').css('visibility', 'collapse');
-  //$('#mainGame').empty();
+  //$('#mainGame').css('visibility', 'collapse');
+  $('#mainGame').empty();
   $('#wishGame').css('visibility', 'visible');
   wishValue = cardIndex;
 }
@@ -139,6 +140,30 @@ async function clickUno() {
     $('#unoCall').attr('src', "assets/images/pics/CallUno.png")
   }
 }
+
+
+function connectWebSocket() {
+  let websocket = new WebSocket("ws://localhost:9000/websocket");
+  websocket.setTimeout
+
+  websocket.onopen = function(event) {
+      console.log("Connected to Websocket");
+
+      $.ajax({
+          method: 'GET',
+          url: '/json',
+          dataType: 'json',
+
+          success: (result) => {
+              loadGame(result);
+          },
+          error: () => {
+              alert('Could not load Json!');
+          }
+      });
+  }
+  
+
 
 function setCardPicPath(card) {
   var color = "";

@@ -75,5 +75,61 @@ class UnoController @Inject()(cc: ControllerComponents) extends AbstractControll
       )
     )
   }
-}
 
+
+
+def socket: WebSocket = WebSocket.accept[String, String] { request =>
+    ActorFlow.actorRef { out =>
+      println("Connect received")
+      UnoWebSocketActorFactory.create(out)
+    }
+  }
+
+  object UnoWebSocketActorFactory {
+    def create(out: ActorRef): Props = {
+      Props(new UnoWebSocketActor(out))
+    }
+  }
+
+  class UnoWebSocketActor(out: ActorRef) extends Actor with Reactor {
+    listenTo(controller)
+
+    def receive: Receive = {
+      case msg: String =>
+        out ! gameToJson()
+        println("Sent Json to Client"+ msg)
+    }
+
+    reactions += {
+      case event: GameSizeChanged => {
+        println("Received GameSizeChanged-Event from Controller")
+        sendJsonToClient("GameSizeChanged " + gameToJson())
+      }
+      case event: GameChanged => {
+        println("Received GameChanged-Event from Controller")
+        sendJsonToClient()
+      }
+      case event: GameNotChanged => {
+        println("Received GameNotChanged-Event from Controller")
+        val game = if (controller.controllerEvent("idle").equals("Du kannst diese Karte nicht legen")) " " + gameToJson() else ""
+        sendJsonToClient("GameNotChanged" + game)
+      }
+      case event: ChooseColor => {
+        println("Received ChooseColor-Event from Controller")
+        sendJsonToClient("ChooseColor: " + controller.getHs2 + controller.controllerEvent("idle"))
+      }
+      case event: GameEnded => {
+        println("Received GameEnded-Event from Controller")
+        if(controller.controllerEvent("idle").equals("Glückwunsch, du hast gewonnen!")) {
+          sendJsonToClient("GameWon")
+        } else {
+          sendJsonToClient("GameLost")
+        }
+      }
+    }
+
+    def sendJsonToClient(param: String = ""): Unit = {
+      out ! (if(param.equals("")) gameToJson() else param)
+    }
+  }
+}
