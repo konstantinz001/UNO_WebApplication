@@ -1,14 +1,21 @@
 
 package controllers
 
+
 import javax.inject._
 import play.api.mvc._
 import UNO.aview.TUI
 import UNO.controller.controllerComponent.controllerInterface
 import play.api.libs.json._
+import play.api.libs.streams.ActorFlow
+import akka.actor.ActorSystem
+import akka.stream.Materializer
+import akka.actor._
+
+import scala.swing.Reactor
 
 @Singleton
-class UnoController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class UnoController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
   val controller: controllerInterface = UNO.UnoGame.controller
   val tui = new TUI(controller)
 
@@ -101,30 +108,10 @@ def socket: WebSocket = WebSocket.accept[String, String] { request =>
     }
 
     reactions += {
-      case event: GameSizeChanged => {
-        println("Received GameSizeChanged-Event from Controller")
-        sendJsonToClient("GameSizeChanged " + gameToJson())
-      }
+      
       case event: GameChanged => {
         println("Received GameChanged-Event from Controller")
         sendJsonToClient()
-      }
-      case event: GameNotChanged => {
-        println("Received GameNotChanged-Event from Controller")
-        val game = if (controller.controllerEvent("idle").equals("Du kannst diese Karte nicht legen")) " " + gameToJson() else ""
-        sendJsonToClient("GameNotChanged" + game)
-      }
-      case event: ChooseColor => {
-        println("Received ChooseColor-Event from Controller")
-        sendJsonToClient("ChooseColor: " + controller.getHs2 + controller.controllerEvent("idle"))
-      }
-      case event: GameEnded => {
-        println("Received GameEnded-Event from Controller")
-        if(controller.controllerEvent("idle").equals("Glückwunsch, du hast gewonnen!")) {
-          sendJsonToClient("GameWon")
-        } else {
-          sendJsonToClient("GameLost")
-        }
       }
     }
 

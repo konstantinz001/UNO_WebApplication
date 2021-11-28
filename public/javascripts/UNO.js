@@ -162,7 +162,20 @@ function connectWebSocket() {
           }
       });
   }
-  
+  websocket.onclose = function () {
+        console.log('Connection with Websocket Closed!');
+  };
+
+    websocket.onerror = function (error) {
+        console.log('Error in Websocket Occured: ' + error);
+  };
+
+  websocket.onmessage = function (e) {
+      let json = JSON.parse(e.data);
+      loadGame(json);
+  }
+}
+
 
 
 function setCardPicPath(card) {

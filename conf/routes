@@ -8,6 +8,7 @@ GET     /json                              controllers.UnoController.gameToJson
 GET     /get                               controllers.UnoController.getCard
 GET     /set/:index                        controllers.UnoController.setCard(index: String)
 GET     /call/:index                       controllers.UnoController.setUnoCard(index: String)
+GET     /websocket                         controllers.UnoController.socket
 
 
 # Map static resources from the /public folder to the /assets URL path
