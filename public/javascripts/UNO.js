@@ -49,8 +49,6 @@ function updateGame() {
   callUno = false;
   var index = 0;
 
-  document.getElementById("overlay").style.display = "none";
-
   $('#mainGame').css('visibility', 'visible');
   $('#wishGame').css('visibility', 'collapse');
   $('#unoCall').attr('src', "assets/images/pics/UNO_Logo.png")
