@@ -56,8 +56,7 @@ class UnoController @Inject()(cc: ControllerComponents)(implicit system: ActorSy
     Ok(views.html.tui(tui))
   }
 
-  def gameToJson(): Action[AnyContent] = Action {
-    Ok(
+  def gameToJson(): String = {
       Json.prettyPrint(
         Json.obj(
           "game" -> Json.obj(
@@ -81,7 +80,6 @@ class UnoController @Inject()(cc: ControllerComponents)(implicit system: ActorSy
           )
         )
       )
-    )
   }
 
 
