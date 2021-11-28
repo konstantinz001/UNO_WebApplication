@@ -97,3 +97,24 @@
     font-size: 15pt;
     text-align: center;
 }
+
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:hover {
+    color: burlywood;
+    background-color: transparent;
+    text-decoration: underline;
+}
+a:active {
+    color: white;
+    background-color: transparent;
+    text-decoration: underline;
+}
