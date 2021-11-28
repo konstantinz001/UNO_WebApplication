@@ -155,7 +155,7 @@ function connectWebSocket() {
           dataType: 'json',
 
           success: (result) => {
-              loadGame(result);
+              loadJson(result);
           },
           error: () => {
               alert('Could not load Json!');

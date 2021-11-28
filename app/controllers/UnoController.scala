@@ -6,13 +6,14 @@ import javax.inject._
 import play.api.mvc._
 import UNO.aview.TUI
 import UNO.controller.controllerComponent.controllerInterface
+import UNO.controller.controllerComponent.controllerBaseImp.{updateStates, welcomeStates}
 import play.api.libs.json._
 import play.api.libs.streams.ActorFlow
 import akka.actor.ActorSystem
 import akka.stream.Materializer
 import akka.actor._
-
 import scala.swing.Reactor
+import scala.swing.event.Event
 
 @Singleton
 class UnoController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
@@ -109,14 +110,15 @@ def socket: WebSocket = WebSocket.accept[String, String] { request =>
 
     reactions += {
       
-      case event: GameChanged => {
+      case event: updateStates => {
         println("Received GameChanged-Event from Controller")
         sendJsonToClient()
       }
     }
 
-    def sendJsonToClient(param: String = ""): Unit = {
-      out ! (if(param.equals("")) gameToJson() else param)
+    def sendJsonToClient(): Unit = {
+      println("Received event from Controller")
+      out ! (gameToJson())
     }
   }
 }
