@@ -1,8 +1,5 @@
 
-GET     /instruction/:input/:index         controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
-
-GET     /instruction/:input                controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
-GET     /instruction                       controllers.UnoController.instructionExecute(input: String, index: String, unoIndex: String)
+GET     /newGame                           controllers.UnoController.tuiNewGame
 GET     /tui                               controllers.UnoController.tuiGame
 GET     /                                  controllers.UnoController.index
 GET     /about                             controllers.UnoController.about

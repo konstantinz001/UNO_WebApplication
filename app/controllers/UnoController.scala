@@ -25,7 +25,11 @@ class UnoController @Inject()(cc: ControllerComponents) extends AbstractControll
   }
 
   def tuiGame() = Action {
-    //controller.setDefault()
+    Ok(views.html.tui(tui))
+  }
+
+    def tuiNewGame() = Action {
+    controller.setDefault()
     Ok(views.html.tui(tui))
   }
 
@@ -43,17 +47,6 @@ class UnoController @Inject()(cc: ControllerComponents) extends AbstractControll
     tui.processInputLine("u " + index)
     Ok(views.html.tui(tui))
   }
-
-  def instructionExecute(input: String, index: String, unoIndex:String) = Action {
-
-    if(unoIndex == "") {
-      tui.processInputLine(input + " " + index.replaceAll("§"," "))
-    } else {
-      tui.processInputLine(input + " " + unoIndex.replaceAll("§"," "))
-    }
-    Ok(views.html.tui(tui))
-  }
-
 
   def gameToJson(): Action[AnyContent] = Action {
     Ok(

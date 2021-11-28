@@ -11,11 +11,12 @@ let playerCardsNext = [];
 let callUno = false;
 let wishColor = "";
 let wishValue = "";
+const possibleWishColors = ['red','blue','yellow','green'];
 
 
 var currentPath = window.location.pathname;
-if (currentPath.includes("instruction")) {
-  currentPath = "/tui";
+if (currentPath.includes("newGame")) {
+  window.location.pathname = "/tui";
 }
 var pages = document.getElementById(currentPath).className = "nav-link active";
 
@@ -27,6 +28,7 @@ function loadJson() {
     dataType: 'json',
 
     success: (result) => {
+      
       playStackCard = result.game.playStackCard;
       playernameCurrent = result.game.playerListNameCurrent;
       playerCardsCurrent = result.game.playerListCardsCurrent;
@@ -46,6 +48,9 @@ function updateGame() {
   wishValue = "";
   callUno = false;
   var index = 0;
+
+  document.getElementById("overlay").style.display = "none";
+
   $('#mainGame').css('visibility', 'visible');
   $('#wishGame').css('visibility', 'collapse');
   $('#unoCall').attr('src', "assets/images/pics/UNO_Logo.png")
@@ -67,6 +72,7 @@ function updateGame() {
 
 async function setBlackCard(cardIndex) {
   $('#mainGame').css('visibility', 'collapse');
+  //$('#mainGame').empty();
   $('#wishGame').css('visibility', 'visible');
   wishValue = cardIndex;
 }
@@ -77,8 +83,6 @@ async function setWishColor(color) {
   setCard(wishValue + " " + wishColor);
 
 }
-
-
 
 function setCard(cardIndex) {
 
