@@ -1,14 +1,22 @@
 
 package controllers
 
+
 import javax.inject._
 import play.api.mvc._
 import UNO.aview.TUI
 import UNO.controller.controllerComponent.controllerInterface
+import UNO.controller.controllerComponent.controllerBaseImp.{updateStates, welcomeStates}
 import play.api.libs.json._
+import play.api.libs.streams.ActorFlow
+import akka.actor.ActorSystem
+import akka.stream.Materializer
+import akka.actor._
+import scala.swing.Reactor
+import scala.swing.event.Event
 
 @Singleton
-class UnoController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class UnoController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
   val controller: controllerInterface = UNO.UnoGame.controller
   val tui = new TUI(controller)
 
@@ -48,8 +56,13 @@ class UnoController @Inject()(cc: ControllerComponents) extends AbstractControll
     Ok(views.html.tui(tui))
   }
 
-  def gameToJson(): Action[AnyContent] = Action {
-    Ok(
+  def gameToJsonAction(): Action[AnyContent] = Action {
+    Ok(gameToJson())
+  }
+
+
+
+  def gameToJson(): String = {
       Json.prettyPrint(
         Json.obj(
           "game" -> Json.obj(
@@ -73,7 +86,48 @@ class UnoController @Inject()(cc: ControllerComponents) extends AbstractControll
           )
         )
       )
-    )
+  }
+
+
+
+def socket: WebSocket = WebSocket.accept[String, String] { request =>
+    ActorFlow.actorRef { out =>
+      println("Connect received")
+      UnoWebSocketActorFactory.create(out)
+    }
+  }
+
+  object UnoWebSocketActorFactory {
+    def create(out: ActorRef): Props = {
+      Props(new UnoWebSocketActor(out))
+    }
+  }
+
+  class UnoWebSocketActor(out: ActorRef) extends Actor with Reactor {
+    listenTo(controller)
+
+    def receive: Receive = {
+      case msg: String =>
+        out ! gameToJson()
+        println("Sent Json to Client"+ msg)
+    }
+
+    reactions += {
+      
+      case event: updateStates => {
+        println("Received GameChanged-Event from Controller")
+        sendJsonToClient()
+      }
+      case event: welcomeStates => {
+        println("Welcome")
+        sendJsonToClient()
+      }
+      
+    }
+
+    def sendJsonToClient(): Unit = {
+      println("Received event from Controller")
+      out ! (gameToJson())
+    }
   }
 }
-

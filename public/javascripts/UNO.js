@@ -1,6 +1,7 @@
 $(document).ready(function () {
   console.log("Document is ready, filling grid");
   loadJson();
+  connectWebSocket();
 });
 
 let playStackCard = '';
@@ -11,15 +12,12 @@ let playerCardsNext = [];
 let callUno = false;
 let wishColor = "";
 let wishValue = "";
-const possibleWishColors = ['red','blue','yellow','green'];
-
 
 var currentPath = window.location.pathname;
 if (currentPath.includes("newGame")) {
   window.location.pathname = "/tui";
 }
 var pages = document.getElementById(currentPath).className = "nav-link active";
-
 
 function loadJson() {
   $.ajax({
@@ -28,7 +26,7 @@ function loadJson() {
     dataType: 'json',
 
     success: (result) => {
-      
+
       playStackCard = result.game.playStackCard;
       playernameCurrent = result.game.playerListNameCurrent;
       playerCardsCurrent = result.game.playerListCardsCurrent;
@@ -44,8 +42,6 @@ function loadJson() {
 }
 
 function updateGame() {
-  wishColor = "";
-  wishValue = "";
   callUno = false;
   var index = 0;
 
@@ -58,19 +54,24 @@ function updateGame() {
   $('#stackCard').append('<img class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(playStackCard) + '" width="100" id= "PlayStack">');
   $('#handCard').empty();
   playerCardsCurrent.forEach(handcard => {
-    if(setCardPicPath(handcard).includes("Black")) {
+    if (setCardPicPath(handcard).includes("Black")) {
       $('#handCard').append('<img onclick="setBlackCard(' + index + ')" class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(handcard) + '" width="100" id= "' + index + '">');
 
-    }else {
+    } else {
       $('#handCard').append('<img onclick="setCard(' + index + ')" class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(handcard) + '" width="100" id= "' + index + '">');
     }
     index = index + 1;
   })
+  if(wishColor != "") {
+    wishColor = "";
+    wishValue = "";
+    location.reload();
+  }
 }
 
 async function setBlackCard(cardIndex) {
-  $('#mainGame').css('visibility', 'collapse');
-  //$('#mainGame').empty();
+  //$('#mainGame').css('visibility', 'collapse');
+  $('#mainGame').empty();
   $('#wishGame').css('visibility', 'visible');
   wishValue = cardIndex;
 }
@@ -91,7 +92,9 @@ function setCard(cardIndex) {
       dataType: 'text',
 
       success: () => {
-        loadJson();
+        updateGame();
+        mainJson();
+        
       },
       error: () => {
         alert('Could not get card!');
@@ -105,12 +108,12 @@ function setCard(cardIndex) {
       dataType: 'text',
 
       success: () => {
-          loadJson();
+        loadJson();
       },
       error: () => {
-          alert('Could not set card!');
+        alert('Could not set card!');
       }
-  });
+    });
   }
 }
 
@@ -136,9 +139,45 @@ async function clickUno() {
   }
   else {
     callUno = true;
-    $('#unoCall').attr('src', "assets/images/pics/CallUno.png")
+    $('#unoCall').attr('src', "assets/images/pisc/CallUno.png")
   }
 }
+
+
+function connectWebSocket() {
+  let websocket = new WebSocket("ws://localhost:9000/websocket");
+  websocket.setTimeout
+
+  websocket.onopen = function (event) {
+    console.log("Connected to Websocket");
+
+    $.ajax({
+      method: 'GET',
+      url: '/json',
+      dataType: 'json',
+
+      success: (result) => {
+        loadJson(result);
+      },
+      error: () => {
+        alert('Could not load Json!');
+      }
+    });
+  }
+  websocket.onclose = function () {
+    console.log('Connection with Websocket Closed!');
+  };
+
+  websocket.onerror = function (error) {
+    console.log('Error in Websocket Occured: ' + error);
+  };
+
+  websocket.onmessage = function (e) {
+    loadJson();
+  }
+}
+
+
 
 function setCardPicPath(card) {
   var color = "";
