@@ -14,6 +14,7 @@ import akka.stream.Materializer
 import akka.actor._
 import scala.swing.Reactor
 import scala.swing.event.Event
+import scala.collection.mutable.ListBuffer
 
 @Singleton
 class UnoController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
@@ -94,13 +95,16 @@ def socket: WebSocket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef { out =>
       println("Connect received")
       UnoWebSocketActorFactory.create(out)
-    }
+      
+    }  
+
   }
 
   object UnoWebSocketActorFactory {
     def create(out: ActorRef): Props = {
       Props(new UnoWebSocketActor(out))
     }
+
   }
 
   class UnoWebSocketActor(out: ActorRef) extends Actor with Reactor {
@@ -108,12 +112,11 @@ def socket: WebSocket = WebSocket.accept[String, String] { request =>
 
     def receive: Receive = {
       case msg: String =>
-        out ! gameToJson()
         println("Sent Json to Client"+ msg)
+        out ! gameToJson()
     }
 
     reactions += {
-      
       case event: updateStates => {
         println("Received GameChanged-Event from Controller")
         sendJsonToClient()

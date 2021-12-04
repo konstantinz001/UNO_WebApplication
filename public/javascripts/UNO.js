@@ -12,6 +12,7 @@ let playerCardsNext = [];
 let callUno = false;
 let wishColor = "";
 let wishValue = "";
+var websocket;
 
 var currentPath = window.location.pathname;
 if (currentPath.includes("newGame")) {
@@ -42,7 +43,7 @@ function loadJson() {
 }
 
 function updateGame() {
-  callUno = false;
+  
   var index = 0;
 
   $('#mainGame').css('visibility', 'visible');
@@ -62,6 +63,9 @@ function updateGame() {
     }
     index = index + 1;
   })
+
+  callUno = false;
+  
   if(wishColor != "") {
     wishColor = "";
     wishValue = "";
@@ -92,8 +96,7 @@ function setCard(cardIndex) {
       dataType: 'text',
 
       success: () => {
-        updateGame();
-        mainJson();
+        loadJson();
         
       },
       error: () => {
@@ -145,8 +148,9 @@ async function clickUno() {
 
 
 function connectWebSocket() {
-  let websocket = new WebSocket("ws://localhost:9000/websocket");
+  websocket = new WebSocket("ws://localhost:9000/websocket");
   websocket.setTimeout
+
 
   websocket.onopen = function (event) {
     console.log("Connected to Websocket");
