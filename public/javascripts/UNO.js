@@ -1,78 +1,58 @@
 $(document).ready(function () {
   console.log("Document is ready, filling grid");
-  loadJson();
   connectWebSocket();
 });
 
-let playStackCard = '';
-let playernameCurrent = '';
-let playernameNext = '';
-let playerCardsCurrent = [];
-let playerCardsNext = [];
+let websocket;
 let callUno = false;
 let wishColor = "";
 let wishValue = "";
 
-var currentPath = window.location.pathname;
-if (currentPath.includes("newGame")) {
-  window.location.pathname = "/tui";
-}
-var pages = document.getElementById(currentPath).className = "nav-link active";
+class UnoField {
 
-function loadJson() {
-  $.ajax({
-    method: 'GET',
-    url: '/json',
-    dataType: 'json',
+  constructor() {
+    this.playStackCard = '';
+    this.playernameCurrent = '';
+    this.playernameNext = '';
+    this.playerCardsCurrent = [];
+    this.playerCardsNext = [];
+    this.callUno = callUno;
+    this.wishColor = wishColor;
+    this.wishValue = wishValue;
+  }
 
-    success: (result) => {
+  updateGame() {
+    this.callUno = false;
+    var index = 0;
 
-      playStackCard = result.game.playStackCard;
-      playernameCurrent = result.game.playerListNameCurrent;
-      playerCardsCurrent = result.game.playerListCardsCurrent;
+    $('#uno-GameFild').css('visibility', 'visible');
+    $('#wishGame-GameField').css('visibility', 'collapse');
+    $('#unoCall').attr('src', "assets/images/pics/UNO_Logo.png")
+    $('#gameMessage').empty();
+    $('#gameMessage').append('<h4>PLAYER ' + playernameCurrent + 'it´s your turn</h4>');
+    $('#stackCard').empty();
+    $('#stackCard').append('<img class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(playStackCard) + '" width="100" id= "PlayStack">');
+    $('#handCard').empty();
+    playerCardsCurrent.forEach(handcard => {
+      if (setCardPicPath(handcard).includes("Black")) {
+        $('#handCard').append('<img onclick="setBlackCard(' + index + ')" class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(handcard) + '" width="100" id= "' + index + '">');
 
-      playernameNext = result.game.playerListNameNext;
-      playerCardsNext = result.game.playerListCardsNext;
-      updateGame();
-    },
-    error: () => {
-      alert('Could not load Json!');
+      } else {
+        $('#handCard').append('<img onclick="setCard(' + index + ')" class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(handcard) + '" width="100" id= "' + index + '">');
+      }
+      index = index + 1;
+    })
+    if (this.wishColor != "") {
+      this.wishColor = "";
+      this.wishValue = "";
+      location.reload();
     }
-  });
-}
-
-function updateGame() {
-  callUno = false;
-  var index = 0;
-
-  $('#mainGame').css('visibility', 'visible');
-  $('#wishGame').css('visibility', 'collapse');
-  $('#unoCall').attr('src', "assets/images/pics/UNO_Logo.png")
-  $('#gameMessage').empty();
-  $('#gameMessage').append('<h4>PLAYER ' + playernameCurrent + 'it´s your turn</h4>');
-  $('#stackCard').empty();
-  $('#stackCard').append('<img class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(playStackCard) + '" width="100" id= "PlayStack">');
-  $('#handCard').empty();
-  playerCardsCurrent.forEach(handcard => {
-    if (setCardPicPath(handcard).includes("Black")) {
-      $('#handCard').append('<img onclick="setBlackCard(' + index + ')" class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(handcard) + '" width="100" id= "' + index + '">');
-
-    } else {
-      $('#handCard').append('<img onclick="setCard(' + index + ')" class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(handcard) + '" width="100" id= "' + index + '">');
-    }
-    index = index + 1;
-  })
-  if(wishColor != "") {
-    wishColor = "";
-    wishValue = "";
-    location.reload();
   }
 }
 
 async function setBlackCard(cardIndex) {
-  //$('#mainGame').css('visibility', 'collapse');
-  $('#mainGame').empty();
-  $('#wishGame').css('visibility', 'visible');
+  $('#uno-GameFild').empty();
+  $('#wishGame-GameField').css('visibility', 'visible');
   wishValue = cardIndex;
 }
 
@@ -85,84 +65,54 @@ async function setWishColor(color) {
 
 function setCard(cardIndex) {
 
+  console.log(cardIndex);
   if (callUno === false) {
-    $.ajax({
-      method: 'GET',
-      url: '/set/' + cardIndex,
-      dataType: 'text',
-
-      success: () => {
-        updateGame();
-        mainJson();
-        
-      },
-      error: () => {
-        alert('Could not get card!');
+    websocket.send(JSON.stringify({
+      "set": {
+        "cardIndex": cardIndex
       }
-    });
+    }))
   }
-  else {
-    $.ajax({
-      method: 'GET',
-      url: '/call/' + cardIndex,
-      dataType: 'text',
 
-      success: () => {
-        loadJson();
-      },
-      error: () => {
-        alert('Could not set card!');
+  else {
+    websocket.send(JSON.stringify({
+      "call": {
+        "cardIndex": cardIndex
       }
-    });
+    }))
   }
 }
 
 function getCard() {
-  $.ajax({
-    method: 'GET',
-    url: '/get',
-    dataType: 'text',
-
-    success: () => {
-      loadJson();
-    },
-    error: () => {
-      alert('Could not get card!');
-    }
-  });
+  websocket.send(JSON.stringify({
+    "get": {}
+  }))
 }
 
 async function clickUno() {
   if (callUno === true) {
     callUno = false;
-    $('#unoCall').attr('src', "assets/images/pics/UNO_Logo.png")
+    $('#unoCall').attr('src', "../assets/images/pics/UNO_Logo.png")
   }
   else {
     callUno = true;
-    $('#unoCall').attr('src', "assets/images/pisc/CallUno.png")
+    $('#unoCall').attr('src', "../assets/images/pics/CallUno.png")
   }
 }
 
 
 function connectWebSocket() {
-  let websocket = new WebSocket("ws://localhost:9000/websocket");
+  websocket = new WebSocket("ws://localhost:9000/websocket");
   websocket.setTimeout
 
   websocket.onopen = function (event) {
-    console.log("Connected to Websocket");
 
-    $.ajax({
-      method: 'GET',
-      url: '/json',
-      dataType: 'json',
-
-      success: (result) => {
-        loadJson(result);
-      },
-      error: () => {
-        alert('Could not load Json!');
+    websocket.send(JSON.stringify({
+      "connected": {
+        "connect": "successful"
       }
-    });
+    }))
+    console.log("Connected to Websocket");
   }
   websocket.onclose = function () {
     console.log('Connection with Websocket Closed!');
@@ -173,7 +123,19 @@ function connectWebSocket() {
   };
 
   websocket.onmessage = function (e) {
-    loadJson();
+    if (typeof e.data === "string") {
+      console.log(e.data);
+      let unofield = new UnoField;
+      let result = JSON.parse(e.data);
+      playStackCard = result.game.playStackCard;
+      playernameCurrent = result.game.playerListNameCurrent;
+      playerCardsCurrent = result.game.playerListCardsCurrent;
+
+      playernameNext = result.game.playerListNameNext;
+      playerCardsNext = result.game.playerListCardsNext;
+      unofield.updateGame();
+
+    }
   }
 }
 
