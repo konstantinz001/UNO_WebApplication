@@ -1,7 +1,7 @@
 
-name := """UNO for WebApps"""
+name := """UNO for WebApps """
 
-version := "1.0"
+version := "0.9"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
@@ -10,7 +10,7 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 scalaVersion := "2.12.15"
 
 libraryDependencies += guice
-libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
+libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
 libraryDependencies += "com.h2database" % "h2" % "1.4.196"
 
 // Adds additional packages into Twirl
