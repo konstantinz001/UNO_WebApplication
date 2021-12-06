@@ -7,6 +7,7 @@ let websocket;
 let callUno = false;
 let wishColor = "";
 let wishValue = "";
+var websocket;
 
 class UnoField {
 
@@ -67,9 +68,23 @@ function setCard(cardIndex) {
 
   console.log(cardIndex);
   if (callUno === false) {
+<<<<<<< HEAD
+    $.ajax({
+      method: 'GET',
+      url: '/set/' + cardIndex,
+      dataType: 'text',
+
+      success: () => {
+        loadJson();
+        
+      },
+      error: () => {
+        alert('Could not get card!');
+=======
     websocket.send(JSON.stringify({
       "set": {
         "cardIndex": cardIndex
+>>>>>>> 7de5b1ebf0662d799f67d491772903db1a579107
       }
     }))
   }
@@ -104,6 +119,7 @@ async function clickUno() {
 function connectWebSocket() {
   websocket = new WebSocket("ws://localhost:9000/websocket");
   websocket.setTimeout
+
 
   websocket.onopen = function (event) {
 
