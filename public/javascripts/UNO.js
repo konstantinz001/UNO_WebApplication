@@ -7,7 +7,6 @@ let websocket;
 let callUno = false;
 let wishColor = "";
 let wishValue = "";
-var websocket;
 
 class UnoField {
 
@@ -26,7 +25,7 @@ class UnoField {
     this.callUno = false;
     var index = 0;
 
-    $('#uno-GameFild').css('visibility', 'visible');
+    $('#uno-GameField').css('visibility', 'visible');
     $('#wishGame-GameField').css('visibility', 'collapse');
     $('#unoCall').attr('src', "assets/images/pics/UNO_Logo.png")
     $('#gameMessage').empty();
@@ -52,7 +51,7 @@ class UnoField {
 }
 
 async function setBlackCard(cardIndex) {
-  $('#uno-GameFild').empty();
+  $('#uno-GameField').empty();
   $('#wishGame-GameField').css('visibility', 'visible');
   wishValue = cardIndex;
 }

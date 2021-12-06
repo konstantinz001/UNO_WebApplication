@@ -7,7 +7,7 @@ unoGame.component('calluno_pullstack', {
     `,
 });
 
-
+// template div class -> style="visibility: collapse;" bzw invisible
 const wishGame = Vue.createApp({})
 wishGame.component('wishcards', {
     data() {
@@ -26,6 +26,6 @@ wishGame.component('wishcards', {
     `,
 });
 
-unoGame.mount('#uno-GameFild')
+unoGame.mount('#uno-GameField')
 wishGame.mount('#wishGame-GameField')
 
