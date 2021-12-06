@@ -1,7 +1,7 @@
 
-name := """Sudoku in Scala for WebTech"""
+name := """UNO for WebApps"""
 
-version := "1.2"
+version := "1.0"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
