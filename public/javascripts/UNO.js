@@ -29,7 +29,7 @@ class UnoField {
     $('#wishGame-GameField').css('visibility', 'collapse');
     $('#unoCall').attr('src', "assets/images/pics/UNO_Logo.png")
     $('#gameMessage').empty();
-    $('#gameMessage').append('<h4>PLAYER ' + playernameCurrent + 'it´s your turn</h4>');
+    $('#gameMessage').append('<h4>PLAYER ' + playernameCurrent + ' it´s your turn</h4>');
     $('#stackCard').empty();
     $('#stackCard').append('<img class="img-fluid handCards" src="../assets/images/pics/cards/' + setCardPicPath(playStackCard) + '" width="100" id= "PlayStack">');
     $('#handCard').empty();
