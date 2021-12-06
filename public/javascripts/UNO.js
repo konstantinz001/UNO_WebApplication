@@ -165,7 +165,7 @@ function setCardPicPath(card) {
   else if (card.includes("Ø")) {
     value = "Skip.png";
   }
-  else if (card.includes("4+ColorSwitch")) {
+  else if (card.includes("4+ ColorSwitch")) {
     value = "4+ColorSwitch.png";
   }
   else if (card.includes("ColorSwitch")) {
