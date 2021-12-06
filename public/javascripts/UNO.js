@@ -68,23 +68,10 @@ function setCard(cardIndex) {
 
   console.log(cardIndex);
   if (callUno === false) {
-<<<<<<< HEAD
-    $.ajax({
-      method: 'GET',
-      url: '/set/' + cardIndex,
-      dataType: 'text',
 
-      success: () => {
-        loadJson();
-        
-      },
-      error: () => {
-        alert('Could not get card!');
-=======
     websocket.send(JSON.stringify({
       "set": {
         "cardIndex": cardIndex
->>>>>>> 7de5b1ebf0662d799f67d491772903db1a579107
       }
     }))
   }

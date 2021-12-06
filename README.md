@@ -5,7 +5,7 @@
 
 **About**
 
-This project by [Konstantin](https://github.com/konstantinz001) and [Julian Zimmermann](https://github.com/JeSuisUneLicorne) is the coursework for Web Applications class at [University of Applied Sciences Constance (HTWG Konstanz)](https://www.htwg-konstanz.de/) for fall 2021.
+This project by [Konstantin Zabaznov](https://github.com/konstantinz001) and [Julian Zimmermann](https://github.com/JeSuisUneLicorne) is the coursework for Web Applications class at [University of Applied Sciences Constance (HTWG Konstanz)](https://www.htwg-konstanz.de/) for fall 2021.
 
 
 ---
