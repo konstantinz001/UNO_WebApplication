@@ -1,53 +1,44 @@
-[<img src="https://img.shields.io/travis/playframework/play-scala-starter-example.svg"/>](https://travis-ci.org/playframework/play-scala-starter-example)
+<!-- [<img src="https://img.shields.io/travis/playframework/play-scala-starter-example.svg"/>](https://travis-ci.org/playframework/play-scala-starter-example)  This is an example pic :D We should use a real one-->
 
-# HTWG play-scala-seed
-
-This is a starter application using Play for the Lecture Web Technologies at HTWG.
-
-## Setup
-
-To set up your project follow these steps:
-* Fork this project on github
-* Rename the project on your github account (Settings > Repository name)
-* Load your forked project in IDEA (File > New > Project from  Version Controll > Github)
-* Go to build.sbt file, IDEA should offer to import the project structure from sbt. This will take several minutes. 
-* Continue only after import finished. That is the case when red fonds disappear. 
-* Go to a Scala file. IDEA should offer to connect to a Java VM and Scala SDK. 
-* Select Java 1.8
-* Select the same Scala SDK as your project from Software Engineering is running on, Scala 2.12.4 recommended.
+# UNO  
 
 
-* Open the Project Structure (File > Project Structure)
-* Make sure the Project Structure > Libraries contains the Scala-sdk libraries in the correct version (2.12.4)
-* Make sure your module is not imported twice. If there are two (root, <your project>), delete <your project> and keep the root. 
-* Make sure in app > controllers you can create new Scala classes from the context menu.
+**About**
 
-## Running
+This project by [Konstantin Zabaznov](https://github.com/konstantinz001) and [Julian Zimmermann](https://github.com/JeSuisUneLicorne) is the coursework for Web Applications class at [University of Applied Sciences Constance (HTWG Konstanz)](https://www.htwg-konstanz.de/) for fall 2021.
 
-* In the IDEA Terminal type in sbt run. This will download play, the first time this also takes some time. 
 
-```
-sbt run
-```
+---
 
-And then in your browser go to http://localhost:9000. 
-Now your project files are compiled, so this again takes some time the first time arround. 
-The default page is actually a very good introduction to play. Read it!
+**Screenshots**
 
-## First changes
 
-Go to the view index.scala.html. Change it, so that the home page just shows "Hello World"
+<!--TODO: add a couple of screenshots-->
 
-## Integrate your Game
+---
 
-To access your existing game from the Software Engineering class do the following
+<!-- <details>
+  <summary> <b>Guidelines</b> </summary>
+    <ul>
+        <li><a href="https://www.plainenglish.co.uk/how-to-write-in-plain-english.html" target="_blank">How to write in plain English</a>  
+        <li><a href="https://github.com/RomuloOliveira/commit-messages-guide" target="_blank">Commit messages guide</a>  
+        <li><a href="https://github.com/databricks/scala-style-guide" target="_blank">Databricks Scala Guide</a>  
+        <li><a href="https://google.github.io/styleguide/htmlcssguide.html" target="_blank">Google's HTML/CSS Style Guide</a>  
+        <li><a href="https://github.com/airbnb/javascript" target="_blank">Airbnb JavaScript Style Guide</a>  
+    </ul>
+</details>
 
-* In the play project, add a lib folder at the top level.
-* Load your SE game project as a module (File > New > Module from existing Sources)
-* In the project structure, add an Artefact (File > Project Structure > Artefact), select JAR from Module, select your game.
-* Set the output folder for the artefact to the lib folder you just created
-* Generate the jar by (Build > Build Artefacts)
-* Import the jar into IDEA build path (File > Project Structure > Libraries > +)
-* Play automatically uses jars in the lib, but you need to restart the play server
+---
+<details>
+  <summary> <b>References</b> </summary>
+    <ul>
+        <li> <a href="https://www.scala-sbt.org/1.x/docs/index.html" target="_blank">sbt Reference Manual</a>  
+        <li> <a href="https://learngitbranching.js.org/" target="_blank">Learn Git Branching</a>  
+        <li> <a href="https://developer.mozilla.org/en-US/" target="_blank">MDN Web Docs</a>  
+        <li> <a href="https://javascript.info/" target="_blank">The Modern JavaScript Tutorial</a>  
+        <li> <a href="https://github.blog/2018-09-06-removing-jquery-from-github-frontend/" target="_blank">Removing jQuery from GitHub.com frontend (jQuery is obsolete)</a>  
+    </ul>
+</details> -->
 
-Now you should be able to access the classes of your game from your play Controller classes. 
+
+

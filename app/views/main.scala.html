@@ -37,7 +37,7 @@
                                 <a class="nav-link" id="/" href="/">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="/tui" href="/newGame">Tui</a>
+                                <a class="nav-link" id="/tui" href="/newGame">New Game</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="/about" href="/about">About</a>
@@ -57,7 +57,10 @@
         @* And here's where we render the `Html` object containing
          * the page content. *@
         @content
-         <script src="@routes.Assets.versioned("javascripts/UNO.js")" type="text/javascript" defer></script>
+        <script src=@{"https://unpkg.com/vue@3.2.22"}></script>
+        <script src="@routes.Assets.versioned("javascripts/navigationBar.js")" type="text/javascript" defer></script>
+        <script src="@routes.Assets.versioned("javascripts/UNOVue.js")" type="text/javascript" defer></script>
+        <script src="@routes.Assets.versioned("javascripts/UNO.js")" type="text/javascript" defer></script>
         <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript" defer></script>
         
     </body>

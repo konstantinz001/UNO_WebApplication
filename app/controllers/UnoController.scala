@@ -14,6 +14,7 @@ import akka.stream.Materializer
 import akka.actor._
 import scala.swing.Reactor
 import scala.swing.event.Event
+import scala.collection.mutable.ListBuffer
 
 @Singleton
 class UnoController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
@@ -94,13 +95,16 @@ def socket: WebSocket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef { out =>
       println("Connect received")
       UnoWebSocketActorFactory.create(out)
-    }
+      
+    }  
+
   }
 
   object UnoWebSocketActorFactory {
     def create(out: ActorRef): Props = {
       Props(new UnoWebSocketActor(out))
     }
+
   }
 
   class UnoWebSocketActor(out: ActorRef) extends Actor with Reactor {
@@ -108,20 +112,30 @@ def socket: WebSocket = WebSocket.accept[String, String] { request =>
 
     def receive: Receive = {
       case msg: String =>
-        out ! gameToJson()
-        println("Sent Json to Client"+ msg)
+         val cmd = Json.parse(msg).as[JsObject]
+         cmd.value.keySet.foreach {
+          case "get" => tui.processInputLine("s")
+          case "set" => {
+            if(cmd.value("set")("cardIndex").toString.length != 1) {
+            val cardIndex = cmd.value("set")("cardIndex").as[String]
+            tui.processInputLine("r " + cardIndex)
+          }
+          else {
+            val cardIndex = cmd.value("set")("cardIndex").toString
+            tui.processInputLine("r " + cardIndex)
+          }
+        }
+          case "call" => tui.processInputLine("u " + cmd.value("call")("cardIndex"))
+          case "connected" =>
+            out ! gameToJson().toString()
+            println("Sent Json to client" + msg)
+        }
     }
 
     reactions += {
       
-      case event: updateStates => {
-        println("Received GameChanged-Event from Controller")
-        sendJsonToClient()
-      }
-      case event: welcomeStates => {
-        println("Welcome")
-        sendJsonToClient()
-      }
+      case event: updateStates => sendJsonToClient()
+      case event: welcomeStates => sendJsonToClient()
       
     }
 
