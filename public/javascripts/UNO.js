@@ -90,13 +90,6 @@ function getCard() {
   }))
 }
 
-function getCard() {
-  if (location.href.includes("tui")) {
-    websocket.send(JSON.stringify({
-      "tui": {}
-    }))
-  }
-}
 
 async function clickUno() {
   if (callUno === true) {
