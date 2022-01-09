@@ -104,7 +104,7 @@ async function clickUno() {
 
 
 function connectWebSocket() {
-  websocket = new WebSocket("ws://localhost:9000/websocket");
+  websocket = new WebSocket("ws://uno-play.herokuapp.com/websocket");
   websocket.setTimeout
 
 
