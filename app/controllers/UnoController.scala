@@ -126,6 +126,7 @@ def socket: WebSocket = WebSocket.accept[String, String] { request =>
           }
         }
           case "call" => tui.processInputLine("u " + cmd.value("call")("cardIndex"))
+          case "tui" => out ! gameToJson().toString()
           case "connected" =>
             out ! gameToJson().toString()
             println("Sent Json to client" + msg)

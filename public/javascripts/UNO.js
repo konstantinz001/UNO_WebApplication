@@ -90,6 +90,7 @@ function getCard() {
   }))
 }
 
+
 async function clickUno() {
   if (callUno === true) {
     callUno = false;
